@@ -1,0 +1,23 @@
+Package: yelpredict
+Type: Package
+Title: Classify Yelp Ratings from Review Text
+Version: 0.1.0
+Author: Christopher A. Belanger
+Maintainer: Christopher A. Belanger <christopher.a.belanger@gmail.com>
+Description: This package contains a fast, simple, and accurate sentiment classificaiton model for Yelp reviews.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    magrittr,
+    dplyr,
+    stringr,
+    tidytext,
+    textdata,
+    tibble
+Depends: 
+    R (>= 2.10)
+Suggests: 
+    testthat
