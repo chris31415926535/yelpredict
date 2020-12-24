@@ -93,4 +93,60 @@ prepare_yelp <- function(data, var, qtiles = c(1, 39, 65, 102, 169, 1033 )) {
   return(dplyr::bind_cols(data, results))
 }
 
-# <- NULL
+
+#' Flatten 5-Star Yelp Reviews to Positive/Negative
+#'
+#' This function takes integer Yelp star ratings and "flattens" them into binary
+#' positive/negative factor ratings. 1- and 2-star ratings become NEG, 4- and
+#' 5-star ratings become POS, and 3-star ratings are discarded.
+#'
+#' @param data A tibble with Yelp reviews.
+#' @param var The column containing star ratings as numeric values between 1 and
+#'   5.
+#'
+#' @return A modified tibble without 3-star ratings, and with a new column
+#'   containing "POS" for 4- and 5-star ratings and "NEG" for 1- and 2-star
+#'   ratings.
+#' @export
+flatten_stars <- function(data, var){
+
+  results <- data %>%
+    dplyr::mutate(rating = dplyr::case_when(
+      {{var}} < 3 ~ "NEG",
+      {{var}} > 3 ~ "POS") %>%
+        as.factor()
+    ) %>%
+    dplyr::select(-{{var}}) %>%
+    tidyr::drop_na()
+
+  return (results)
+}
+
+
+#' Balance a Dataset for Model Training/Testing
+#'
+#' Classification models work best with "balanced" datasets where the number of
+#' positive negative cases are roughly equal. This function takes an input
+#' tibble and balances it by randomly downsampling until it has the same number
+#' of positive and negative cases.
+#'
+#' Note! It assumes there are more positive than negative cases because this is
+#' always true in the customer-review datasets I'm working with. If your data
+#' differs, the code is straightforward to modify.
+#'
+#' @param data A tibble with input data.
+#' @param var The name of the column to balance.
+#'
+#' @return A tibble with an equal number of positive and negative observations.
+#' @export
+balance_dataset <- function(data, var) {
+  results <- data %>%
+  dplyr::filter({{var}} == "NEG") %>%
+    dplyr::bind_rows(data %>%
+                dplyr::filter({{var}} == "POS") %>%
+                dplyr::slice_sample(n=data %>% dplyr::filter({{var}} == "NEG") %>% nrow() ))
+
+  return(results)
+}
+
+rating <- NULL

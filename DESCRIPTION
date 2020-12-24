@@ -16,10 +16,14 @@ Imports:
     stringr,
     tidytext,
     textdata,
-    tibble
+    tibble,
+    tidyr
 Depends: 
     R (>= 2.10)
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 URL: https://github.com/chris31415926535/yelpredict
 BugReports: https://github.com/chris31415926535/yelpredict/issues
+VignetteBuilder: knitr
