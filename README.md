@@ -157,8 +157,10 @@ confused by the review with lots of negations.
 
 ## For more details
 
-  - [This blog post](FIXME) has more details on the motivation,
-    methodology, and empirical results.
+  - [This blog
+    post](https://cbelanger.netlify.app/post/a-fast-effective-and-simple-classification-model-for-customer-reviews/)
+    has more details on the motivation, methodology, and empirical
+    results.
 
   - I created this model as part of an MBA-level directed reading in
     natural language processing at the University of Ottawa’s Telfer
